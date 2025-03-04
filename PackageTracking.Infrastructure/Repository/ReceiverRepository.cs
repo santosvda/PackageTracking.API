@@ -8,22 +8,39 @@ class ReceiverRepository(PackageTrackingDbContext dbContext) : IReceiverReposito
 {
     public async Task<IEnumerable<Receiver>> GetAllAsync()
     {
-        return await dbContext.Receivers.ToListAsync();
+        return await dbContext.Receivers
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public async Task<Receiver?> GetById(int id)
+    public async Task<Receiver?> GetByIdAsync(int id)
     {
         return await dbContext.Receivers
             .Include(r => r.Packages)
+            .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task<int> Insert(Receiver entity)
+    public async Task<int> CreateAsync(Receiver entity)
     {
         dbContext.Receivers.Add(entity);
 
         await dbContext.SaveChangesAsync();
 
         return entity.Id;
+    }
+
+    public async Task DeleteAsync(Receiver entity)
+    {
+        dbContext.Remove(entity);
+
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task SaveChangesAsync(Receiver entity)
+    {
+        dbContext.Update(entity);
+
+        await dbContext.SaveChangesAsync();
     }
 }

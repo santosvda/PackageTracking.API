@@ -9,7 +9,8 @@ public static class ServiceCollectionExtensions
     public static void AddApplication(this IServiceCollection services)
     {
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
-        services.AddScoped<IReceiverService, ReceiverService>();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(applicationAssembly));
 
         services.AddAutoMapper(applicationAssembly);
 

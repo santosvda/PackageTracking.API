@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PackageTracking.Application.Receivers.Commands.CreateReceiver;
+using PackageTracking.Application.Receivers.Commands.UpdateReceiver;
 using PackageTracking.Application.Receivers.Dtos;
 using PackageTracking.Domain.Entities;
 
@@ -10,6 +12,7 @@ public class ReceiverProfile : Profile
         CreateMap<Receiver, ReceiverDto>()
             .ForMember(dest => dest.Packages, opt => opt.MapFrom(src => src.Packages));
 
-        CreateMap<CreateReceiverDto, Receiver>();
+        CreateMap<CreateReceiverCommand, Receiver>();
+        CreateMap<UpdateReceiverCommand, Receiver>();
     }
 }

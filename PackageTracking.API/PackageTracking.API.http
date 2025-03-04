@@ -1,14 +1,14 @@
 @host = http://localhost
 @port = 5090
 
-@PackageTracking.API_HostAddress = https://localhost:7212
+@PackageTracking.API_HostAddress = http://localhost:5090
 
 
-GET {{PackageTracking.API_HostAddress}}/receiver
+GET {{PackageTracking.API_HostAddress}}/api/receiver
 
 ###
 
-GET {{PackageTracking.API_HostAddress}}/receiver/1
+GET {{PackageTracking.API_HostAddress}}/api/receiver/1
 
 ###
 
@@ -20,6 +20,22 @@ Content-Type: application/json
     "ContactEmail": "receiver5@test.com",
     "ContactNumber": "12-123456789",
     "DocumentNumber": "123456789"
+}
+
+###
+
+DELETE {{PackageTracking.API_HostAddress}}/api/receiver/1
+
+###
+
+PATCH {{PackageTracking.API_HostAddress}}/api/receiver/99
+Content-Type: application/json
+
+{
+    "Description": "Receiver 8",
+    "ContactEmail": "receiver8@test.com",
+    "ContactNumber": "11-123456789",
+    "DocumentNumber": "231231233"
 }
 
 ###

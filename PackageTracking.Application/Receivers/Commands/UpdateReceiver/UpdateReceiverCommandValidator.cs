@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
-using PackageTracking.Application.Receivers.Dtos;
 
-namespace PackageTracking.Application.Receivers.Validators;
-public class CreateReceiverDtoValidator : AbstractValidator<CreateReceiverDto>
+namespace PackageTracking.Application.Receivers.Commands.UpdateReceiver;
+public class UpdateReceiverCommandValidator : AbstractValidator<UpdateReceiverCommand>
 {
-    public CreateReceiverDtoValidator()
+    public UpdateReceiverCommandValidator()
     {
         RuleFor(x => x.Description).Length(3,100);
 
