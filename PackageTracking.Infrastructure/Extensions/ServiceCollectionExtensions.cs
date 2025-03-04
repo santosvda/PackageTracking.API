@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PackageTracking.Domain.Repositories;
 using PackageTracking.Infrastructure.Persistence;
+using PackageTracking.Infrastructure.Repository;
 using PackageTracking.Infrastructure.Seeders;
 using PackageTracking.Infrastructure.Seeders.Interfaces;
 
@@ -15,5 +17,6 @@ public static class ServiceCollectionExtensions
             new MySqlServerVersion(new Version(10, 4, 22))));
 
         services.AddScoped<IReceiverSeeder, ReceiverSeeder>();
+        services.AddScoped<IReceiverRepository, ReceiverRepository>();
     }
 }

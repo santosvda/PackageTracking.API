@@ -1,3 +1,4 @@
+using PackageTracking.Application.Extensions;
 using PackageTracking.Infrastructure.Extensions;
 using PackageTracking.Infrastructure.Seeders.Interfaces;
 
@@ -10,9 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
-
 
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<IReceiverSeeder>();

@@ -19,8 +19,4 @@
     <ProjectReference Include="..\PackageTracking.Infrastructure\PackageTracking.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

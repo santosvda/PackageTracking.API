@@ -25,6 +25,7 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                 Description = "John Doe",
                 ContactEmail = "jonh@jonh.com",
                 ContactNumber = "123456789",
+                DocumentNumber = "123456789",
                 Packages = new List<Package>
                 {
                     new Package
@@ -58,6 +59,7 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                 Description = "Jane Doe",
                 ContactEmail = "jane@jane.com",
                 ContactNumber = "987654321",
+                DocumentNumber = "987654321",
                 Packages = new List<Package>
                 {
                     new Package

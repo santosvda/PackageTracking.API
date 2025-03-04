@@ -1,9 +1,25 @@
 @host = http://localhost
-@port = 5000
+@port = 5090
 
-@PackageTracking.API_HostAddress = {{host}}:{{port}}
+@PackageTracking.API_HostAddress = https://localhost:7212
 
-GET {{PackageTracking.API_HostAddress}}/weatherforecast/
-Accept: application/json
+
+GET {{PackageTracking.API_HostAddress}}/receiver
+
+###
+
+GET {{PackageTracking.API_HostAddress}}/receiver/1
+
+###
+
+POST {{PackageTracking.API_HostAddress}}/api/receiver
+Content-Type: application/json
+
+{
+    "Description": "Receiver 5",
+    "ContactEmail": "receiver5@test.com",
+    "ContactNumber": "12-123456789",
+    "DocumentNumber": "123456789"
+}
 
 ###
