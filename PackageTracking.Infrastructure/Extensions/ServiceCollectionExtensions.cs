@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<PackageTrackingDbContext>(options => options.UseMySql(connectionString,
-            new MySqlServerVersion(new Version(10, 4, 22))));
+            new MySqlServerVersion(new Version(10, 4, 22))).EnableSensitiveDataLogging());
 
         services.AddScoped<IReceiverSeeder, ReceiverSeeder>();
         services.AddScoped<IReceiverRepository, ReceiverRepository>();

@@ -12,7 +12,7 @@ public class CreateReceiverCommandHandler(ILogger<CreateReceiverCommandHandler> 
 {
     public async Task<int> Handle(CreateReceiverCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Inserting a new receiver");
+        logger.LogInformation("Inserting a new receiver {@Receiver}", request);
         var receiver = mapper.Map<Receiver>(request);
 
         var id = await receiverRepository.CreateAsync(receiver);
