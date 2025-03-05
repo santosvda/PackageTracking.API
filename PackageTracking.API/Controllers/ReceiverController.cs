@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageTracking.Application.Receivers.Commands.CreateReceiver;
 using PackageTracking.Application.Receivers.Commands.DeleteReceiver;
@@ -10,6 +11,7 @@ using PackageTracking.Application.Receivers.Queries.GetReceiverById;
 namespace PackageTracking.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ReceiverController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PackageTracking.Domain\PackageTracking.Domain.csproj" />
+    <ProjectReference Include="..\PackageTracking.Application\PackageTracking.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PackageTracking.Domain.Entities;
 using PackageTracking.Domain.Repositories;
 using PackageTracking.Infrastructure.Persistence;
 using PackageTracking.Infrastructure.Repository;
@@ -15,6 +16,9 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<PackageTrackingDbContext>(options => options.UseMySql(connectionString,
             new MySqlServerVersion(new Version(10, 4, 22))).EnableSensitiveDataLogging());
+
+        services.AddIdentityApiEndpoints<User>(options => { })
+            .AddEntityFrameworkStores<PackageTrackingDbContext>();
 
         services.AddScoped<IReceiverSeeder, ReceiverSeeder>();
         services.AddScoped<IReceiverRepository, ReceiverRepository>();

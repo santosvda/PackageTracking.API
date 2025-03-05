@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PackageTracking.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using PackageTracking.Infrastructure.Persistence;
 namespace PackageTracking.Infrastructure.Migrations
 {
     [DbContext(typeof(PackageTrackingDbContext))]
-    partial class PackageTrackingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250305024645_UpdateIdentity")]
+    partial class UpdateIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

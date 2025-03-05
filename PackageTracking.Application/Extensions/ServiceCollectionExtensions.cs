@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using PackageTracking.Application.Receivers;
+using PackageTracking.Application.Users;
 
 namespace PackageTracking.Application.Extensions;
 public static class ServiceCollectionExtensions
@@ -16,5 +16,9 @@ public static class ServiceCollectionExtensions
 
         services.AddValidatorsFromAssembly(applicationAssembly)
             .AddFluentValidationAutoValidation();
+
+        services.AddScoped<IUserContext, UserContext>();
+
+        services.AddHttpContextAccessor();
     }
 }

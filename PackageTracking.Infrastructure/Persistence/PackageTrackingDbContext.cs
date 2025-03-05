@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PackageTracking.Domain.Entities;
 
 namespace PackageTracking.Infrastructure.Persistence;
 
-internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbContext> options) : DbContext(options)
+internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbContext> options) : IdentityDbContext<User>(options)
 {
     internal DbSet<Package> Packages { get; set; }
     internal DbSet<Receiver> Receivers { get; set; }
@@ -11,6 +12,8 @@ internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbConte
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Receiver>()
            .HasMany(r => r.Packages)
            .WithOne()
@@ -25,5 +28,6 @@ internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbConte
                 .WithOne()
                 .HasForeignKey(s => s.PackageId);
         });
+
     }
 }

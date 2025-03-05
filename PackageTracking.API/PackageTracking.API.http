@@ -1,11 +1,12 @@
 @host = http://localhost
 @port = 5090
+@token = CfDJ8AEIbZhBaClLipeCLuNS1GlrZ76-zCDIKfJnmp0XQ1KLaBmEf567foy2LNSgPMa5zqhlCh5uJ00Hl4jglylFlYjhoyY1vp0ZPawxLbCjeMvhOxAcmRYJ3DaQiW1Je1nY7_3BjXJOMTYbWum5qCUP856SPlqtG0XkYKLC22Z78KOe5rig4aomc7MWtQDWuvj1eUEZO0nsAOe_CNKcoZl2_L635OdM7yYKviHXEssw0ADgWPzt0kl4Uh-9tt6yA0E5ogkY9QpEzj0bYUB4nDJCkheD4OGZeo4HnFCC8k091OplLht2qPd1k2_CwiH50rehn8PxPnurGPoqvv2hP72s39c7vje7OIOo57GyKJb1NQdjXqTEb4QP-TO1nRp1vSLUp2pbryKbibTi8wn6q2x2b0_77TxIpQch2oifsLllpByWoGKpax8IqfN3MA3V5WEkjETAEMRpYp6AK9z3qCMSU20p297blSYwqqaJIlqi01vbwqMpLLVwAYGLoR0JyVLfnz6INXGcxCFoejDFFg6inHZyDwhgVRWITORRB7_nEEiVKfbJP8Zj4UUVrNfCdtpL6e7Gg_S73r9edUP2AgL6NCmWEwdC_A7lP7NMNLtTIIz3t-E7SabFixMh5gz0sdr19161IlzUwAaG_7L3IhHuItgkSZQRJlj0wT04h4Bjr5YTWKhZucnj7ZfCpC3KNBB7Hg
 
 @PackageTracking.API_HostAddress = https://localhost:7212
 
 
 GET {{PackageTracking.API_HostAddress}}/api/receiver
-
+Authorization: Bearer {{token}}
 ###
 
 GET {{PackageTracking.API_HostAddress}}/api/receiver/2
@@ -45,6 +46,36 @@ Content-Type: application/json
 
 {
   //CreatePackageCommand
+}
+
+###
+
+POST {{PackageTracking.API_HostAddress}}/api/identity
+Content-Type: application/json
+
+{
+    "email": "felipe@test.com",
+    "password": "Password#123"
+}
+
+###
+
+POST {{PackageTracking.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+
+{
+    "email": "felipe@test.com",
+    "password": "Password#123"
+}
+
+###
+
+PATCH {{PackageTracking.API_HostAddress}}/api/identity/user
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "dateofBirth": "2000-01-01",
+    "nationality": "Peru"
 }
 
 ###

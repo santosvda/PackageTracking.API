@@ -1,19 +1,17 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageTracking.Application.Packages.Dtos;
 using PackageTracking.Application.Packagess.Commands.CreatePackage;
 using PackageTracking.Application.Receivers.Commands.DeletePackage;
-using PackageTracking.Application.Receivers.Commands.DeleteReceiver;
 using PackageTracking.Application.Receivers.Commands.UpdatePackage;
-using PackageTracking.Application.Receivers.Commands.UpdateReceiver;
-using PackageTracking.Application.Receivers.Dtos;
 using PackageTracking.Application.Receivers.Queries.GetAllPackagesForReceiver;
 using PackageTracking.Application.Receivers.Queries.GetAllPackagesForReceiverById;
-using PackageTracking.Application.Receivers.Queries.GetAllReceivers;
 
 namespace PackageTracking.API.Controllers;
 [ApiController]
 [Route("api/receiver/{receiverId}/[controller]")]
+[Authorize]
 public class PackageController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
