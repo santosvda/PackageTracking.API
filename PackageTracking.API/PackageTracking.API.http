@@ -1,7 +1,7 @@
 @host = http://localhost
 @port = 5090
 
-@PackageTracking.API_HostAddress = http://localhost:5090
+@PackageTracking.API_HostAddress = https://localhost:7212
 
 
 GET {{PackageTracking.API_HostAddress}}/api/receiver
@@ -36,6 +36,15 @@ Content-Type: application/json
     "ContactEmail": "receiver8@test.com",
     "ContactNumber": "11-123456789",
     "DocumentNumber": "231231233"
+}
+
+###
+
+POST {{PackageTracking.API_HostAddress}}/api/receiver/{receiverId}/package
+Content-Type: application/json
+
+{
+  //CreatePackageCommand
 }
 
 ###

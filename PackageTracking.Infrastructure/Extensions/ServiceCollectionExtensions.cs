@@ -18,5 +18,6 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IReceiverSeeder, ReceiverSeeder>();
         services.AddScoped<IReceiverRepository, ReceiverRepository>();
+        services.AddScoped<IPackageRepository, PackageRepository>();
     }
 }

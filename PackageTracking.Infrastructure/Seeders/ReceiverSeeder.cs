@@ -41,7 +41,7 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                             PostalCode = "12345",
                             Country = "Country 1"
                         },
-                        Status = new List<Status>
+                        Statuses = new List<Status>
                         {
                             new Status
                             {
@@ -75,7 +75,7 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                             PostalCode = "54321",
                             Country = "Country 2"
                         },
-                        Status = new List<Status>
+                        Statuses = new List<Status>
                         {
                             new Status
                             {

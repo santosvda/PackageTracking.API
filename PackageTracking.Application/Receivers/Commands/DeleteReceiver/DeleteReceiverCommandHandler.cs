@@ -12,7 +12,7 @@ public class DeleteReceiverCommandHandler(ILogger<DeleteReceiverCommandHandler> 
 {
     public async Task Handle(DeleteReceiverCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Inserting a new receiver {ReceiverId}", request.Id);
+        logger.LogInformation("Deleting a new receiver {ReceiverId}", request.Id);
 
         var receiver = await receiverRepository.GetByIdAsync(request.Id) 
             ?? throw new NotFoundException(nameof(Receiver), request.Id.ToString());

@@ -44,7 +44,7 @@ public class ReceiverController(IMediator mediator) : ControllerBase
         command.Id = id;
         await mediator.Send(command);
 
-        return NotFound();
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
@@ -54,6 +54,6 @@ public class ReceiverController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(new DeleteReceiverCommand(id));
 
-        return NotFound();
+        return NoContent();
     }
 }

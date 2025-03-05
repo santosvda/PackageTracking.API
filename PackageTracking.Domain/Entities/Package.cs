@@ -8,8 +8,7 @@
         public decimal Weight { get; set; }
         public bool Delivered { get; set; }
 
-        public Receiver Receiver { get; set; } = new();
         public Adress? Adress { get; set; }
-        public List<Status> Status { get; set; } = new();
+        public List<Status>? Statuses { get; set; } = new();
     }
 }

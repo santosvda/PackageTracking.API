@@ -12,7 +12,7 @@ using PackageTracking.Infrastructure.Persistence;
 namespace PackageTracking.Infrastructure.Migrations
 {
     [DbContext(typeof(PackageTrackingDbContext))]
-    [Migration("20250302014807_Init")]
+    [Migration("20250304221401_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -68,6 +68,10 @@ namespace PackageTracking.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DocumentNumber")
                         .IsRequired()
                         .HasColumnType("longtext");
 

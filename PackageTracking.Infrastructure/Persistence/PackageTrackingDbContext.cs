@@ -11,17 +11,19 @@ internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbConte
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Receiver>()
+           .HasMany(r => r.Packages)
+           .WithOne()
+           .HasForeignKey(p => p.ReceiverId)
+           .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<Package>(entity =>
         {
             entity.OwnsOne(p => p.Adress);
 
-            entity.HasMany(p => p.Status)
+            entity.HasMany(p => p.Statuses)
                 .WithOne()
                 .HasForeignKey(s => s.PackageId);
-
-            entity.HasOne(p => p.Receiver)
-                .WithMany(r => r.Packages)
-                .HasForeignKey(p => p.ReceiverId);
         });
     }
 }
