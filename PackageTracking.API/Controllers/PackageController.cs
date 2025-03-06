@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageTracking.Application.Packages.Dtos;
 using PackageTracking.Application.Packagess.Commands.CreatePackage;
-using PackageTracking.Application.Receivers.Commands.DeletePackage;
-using PackageTracking.Application.Receivers.Commands.UpdatePackage;
-using PackageTracking.Application.Receivers.Queries.GetAllPackagesForReceiver;
-using PackageTracking.Application.Receivers.Queries.GetAllPackagesForReceiverById;
+using PackageTracking.Application.Packagess.Commands.DeletePackage;
+using PackageTracking.Application.Packagess.Commands.UpdatePackage;
+using PackageTracking.Application.Packagess.Queries.GetAllPackagesForReceiver;
+using PackageTracking.Application.Packagess.Queries.GetAllPackagesForReceiverById;
 
 namespace PackageTracking.API.Controllers;
 [ApiController]
@@ -25,9 +25,10 @@ public class PackageController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PackageDto>>> Get([FromRoute] int receiverId)
+    public async Task<ActionResult<IEnumerable<PackageDto>>> Get([FromRoute] int receiverId, [FromQuery] GetAllPackagesForReceiverQuery query)
     {
-        var packages = await mediator.Send(new GetAllPackagesForReceiverQuery { ReceiverId = receiverId });
+        query.ReceiverId = receiverId;
+        var packages = await mediator.Send(query);
 
         return Ok(packages);
     }

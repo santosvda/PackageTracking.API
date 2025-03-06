@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace PackageTracking.Application.Receivers.Commands.UpdatePackage;
+namespace PackageTracking.Application.Packagess.Commands.UpdatePackage;
 public class UpdatePackageCommand() : IRequest
 {
     public int Id { get; set; }

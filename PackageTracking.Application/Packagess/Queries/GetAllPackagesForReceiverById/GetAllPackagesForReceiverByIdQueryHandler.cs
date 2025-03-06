@@ -6,7 +6,7 @@ using PackageTracking.Domain.Entities;
 using PackageTracking.Domain.Excpetions;
 using PackageTracking.Domain.Repositories;
 
-namespace PackageTracking.Application.Receivers.Queries.GetAllPackagesForReceiverById;
+namespace PackageTracking.Application.Packagess.Queries.GetAllPackagesForReceiverById;
 public class GetAllPackagesForReceiverByIdQueryHandler(ILogger<GetAllPackagesForReceiverByIdQueryHandler> logger
     , IMapper mapper
     , IPackageRepository packageRepository

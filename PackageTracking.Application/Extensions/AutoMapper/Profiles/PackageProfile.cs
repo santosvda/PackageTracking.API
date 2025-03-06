@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PackageTracking.Application.Packages.Dtos;
 using PackageTracking.Application.Packagess.Commands.CreatePackage;
-using PackageTracking.Application.Receivers.Commands.UpdatePackage;
+using PackageTracking.Application.Packagess.Commands.UpdatePackage;
 using PackageTracking.Domain.Entities;
 
 namespace PackageTracking.Application.Extensions.AutoMapper.Profiles;

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PackageTracking.Domain.Constants;
 using PackageTracking.Domain.Entities;
 using PackageTracking.Domain.Repositories;
 using PackageTracking.Infrastructure.Persistence;
+using System.Linq.Expressions;
 
 namespace PackageTracking.Infrastructure.Repository;
 class PackageRepository(PackageTrackingDbContext dbContext) : IPackageRepository
@@ -39,4 +41,41 @@ class PackageRepository(PackageTrackingDbContext dbContext) : IPackageRepository
 
     public Task SaveChanges()
      => dbContext.SaveChangesAsync();
+
+    public async Task<(IEnumerable<Package>, int)> GetAllMatchingAsync(string? searchDescription, int pageNumber, int pageSize, string? sortBy, SortDirection sortDirection)
+    {
+        var search = searchDescription?.ToLower();
+
+        var baseQuery = dbContext.Packages
+            .Include(r => r.Statuses)
+            .Where(r => search == null
+                || r.Description.ToLower().Contains(search)
+                || r.Adress.Street.ToLower().Contains(search));
+
+        var totalCount = await baseQuery.CountAsync();
+
+        if (sortBy is not null)
+        {
+            var columnsSelector = new Dictionary<string, Expression<Func<Package, object>>>
+            {
+                { nameof(Package.Description), r => r.Description },
+                { nameof(Package.Adress.Street), r => r.Adress.Street },
+            };
+
+            var selectedColumn = columnsSelector[sortBy];
+
+            baseQuery = sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(selectedColumn)
+                : baseQuery.OrderByDescending(selectedColumn);
+        }
+
+        var packages = await baseQuery
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (packages, totalCount);
+    }
+
+
 }

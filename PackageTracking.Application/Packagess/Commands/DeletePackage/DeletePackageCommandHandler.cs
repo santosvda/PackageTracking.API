@@ -7,7 +7,7 @@ using PackageTracking.Domain.Interfaces;
 using PackageTracking.Domain.Repositories;
 using PackageTracking.Infrastructure.Authorization;
 
-namespace PackageTracking.Application.Receivers.Commands.DeletePackage;
+namespace PackageTracking.Application.Packagess.Commands.DeletePackage;
 public class DeletePackageCommandHandler(ILogger<DeletePackageCommandHandler> logger
     , IReceiverRepository receiverRepository
     , IPackageRepository packageRepository

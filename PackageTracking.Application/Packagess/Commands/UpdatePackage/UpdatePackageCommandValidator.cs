@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace PackageTracking.Application.Receivers.Commands.UpdatePackage;
+namespace PackageTracking.Application.Packagess.Commands.UpdatePackage;
 public class UpdatePackageCommandValidator : AbstractValidator<UpdatePackageCommand>
 {
     public UpdatePackageCommandValidator()

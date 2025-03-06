@@ -7,7 +7,7 @@ using PackageTracking.Domain.Interfaces;
 using PackageTracking.Domain.Repositories;
 using PackageTracking.Infrastructure.Authorization;
 
-namespace PackageTracking.Application.Receivers.Commands.UpdatePackage;
+namespace PackageTracking.Application.Packagess.Commands.UpdatePackage;
 public class UpdatePackageCommandHandler(ILogger<UpdatePackageCommandHandler> logger
     , IMapper mapper
     , IReceiverRepository receiverRepository

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace PackageTracking.Application.Receivers.Commands.DeletePackage;
+namespace PackageTracking.Application.Packagess.Commands.DeletePackage;
 public class DeletePackageCommand(int receiverId, int id) : IRequest
 {
     public int ReceiverId { get; } = receiverId;
