@@ -17,7 +17,6 @@ class ReceiverRepository(PackageTrackingDbContext dbContext) : IReceiverReposito
     {
         return await dbContext.Receivers
             .Include(r => r.Packages)
-            .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
@@ -37,10 +36,6 @@ class ReceiverRepository(PackageTrackingDbContext dbContext) : IReceiverReposito
         await dbContext.SaveChangesAsync();
     }
 
-    public async Task SaveChangesAsync(Receiver entity)
-    {
-        dbContext.Update(entity);
-
-        await dbContext.SaveChangesAsync();
-    }
+    public Task SaveChanges()
+     => dbContext.SaveChangesAsync();
 }

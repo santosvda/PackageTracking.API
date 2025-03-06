@@ -7,5 +7,5 @@ public interface IPackageRepository
     Task<Package?> GetByIdAsync(int receiverId, int id);
     Task<int> CreateAsync(Package entity);
     Task DeleteAsync(Package entity);
-    Task SaveChangesAsync(Package entity);
+    Task SaveChanges();
 }

@@ -7,7 +7,7 @@
         public string? ContactEmail { get; set; }
         public string? ContactNumber { get; set; }
         public string DocumentNumber { get; set; } = default!;
-        public List<Package> Packages { get; set; } = new();
 
+        public List<Package> Packages { get; set; } = new();
     }
 }

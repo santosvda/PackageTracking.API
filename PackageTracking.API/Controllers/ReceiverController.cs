@@ -7,6 +7,7 @@ using PackageTracking.Application.Receivers.Commands.UpdateReceiver;
 using PackageTracking.Application.Receivers.Dtos;
 using PackageTracking.Application.Receivers.Queries.GetAllReceivers;
 using PackageTracking.Application.Receivers.Queries.GetReceiverById;
+using PackageTracking.Domain.Constants;
 
 namespace PackageTracking.API.Controllers;
 [ApiController]
@@ -23,6 +24,8 @@ public class ReceiverController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("{id}")]
+    //[Authorize(Policy = PolicyNames.HasNationality)]
+    //[Authorize(Policy = PolicyNames.AtLeast20)]
     public async Task<ActionResult<ReceiverDto>> GetById([FromRoute] int id)
     {
         var receivers = await mediator.Send(new GetReceiverByIdQuery() { Id = id } );
@@ -41,6 +44,7 @@ public class ReceiverController(IMediator mediator) : ControllerBase
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = UserRoles.Admin)]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateReceiverCommand command)
     {
         command.Id = id;
@@ -52,6 +56,7 @@ public class ReceiverController(IMediator mediator) : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = UserRoles.Admin)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         await mediator.Send(new DeleteReceiverCommand(id));

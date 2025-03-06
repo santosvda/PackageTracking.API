@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using PackageTracking.Domain.Entities;
 using PackageTracking.Domain.Excpetions;
 
-namespace PackageTracking.Application.Users.Commands;
+namespace PackageTracking.Application.Users.Commands.UpdateUserDetails;
 public class UpdateUserDetailsCommandHandler(ILogger<UpdateUserDetailsCommandHandler> logger
     , IUserContext userContext
     , IUserStore<User> userStore

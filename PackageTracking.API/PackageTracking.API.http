@@ -1,19 +1,21 @@
-@host = http://localhost
-@port = 5090
-@token = CfDJ8AEIbZhBaClLipeCLuNS1GlrZ76-zCDIKfJnmp0XQ1KLaBmEf567foy2LNSgPMa5zqhlCh5uJ00Hl4jglylFlYjhoyY1vp0ZPawxLbCjeMvhOxAcmRYJ3DaQiW1Je1nY7_3BjXJOMTYbWum5qCUP856SPlqtG0XkYKLC22Z78KOe5rig4aomc7MWtQDWuvj1eUEZO0nsAOe_CNKcoZl2_L635OdM7yYKviHXEssw0ADgWPzt0kl4Uh-9tt6yA0E5ogkY9QpEzj0bYUB4nDJCkheD4OGZeo4HnFCC8k091OplLht2qPd1k2_CwiH50rehn8PxPnurGPoqvv2hP72s39c7vje7OIOo57GyKJb1NQdjXqTEb4QP-TO1nRp1vSLUp2pbryKbibTi8wn6q2x2b0_77TxIpQch2oifsLllpByWoGKpax8IqfN3MA3V5WEkjETAEMRpYp6AK9z3qCMSU20p297blSYwqqaJIlqi01vbwqMpLLVwAYGLoR0JyVLfnz6INXGcxCFoejDFFg6inHZyDwhgVRWITORRB7_nEEiVKfbJP8Zj4UUVrNfCdtpL6e7Gg_S73r9edUP2AgL6NCmWEwdC_A7lP7NMNLtTIIz3t-E7SabFixMh5gz0sdr19161IlzUwAaG_7L3IhHuItgkSZQRJlj0wT04h4Bjr5YTWKhZucnj7ZfCpC3KNBB7Hg
+@host = https://localhost
+@port = 7212
+@token = CfDJ8AEIbZhBaClLipeCLuNS1GlYrEtBGnV4bg3fqQe--FuVkzMPwN8oKUznPX9184DJYFJDYnwWvOmP37XPgNJVRRPckd-feYKzhcMpqP8nPktWaB2_-cfSe8omGoNSakq9DNgz-eAbHHTGAYvD9GUqdPzLEKU4K8rD4c6PzTTcLrgrzdP17uvVwg9v0E0HlLbtMAaW4tkrn541dAjGETqpSCZ5Sg5oUE8k-Wbnl3PBVU6FHwPeiDBp5J7Vgu1hl3upL0KZg2oLFj6pI1SXXosOtZw5aH7jtrJNI5rIn-zHQd88h3nwGLmP6A37dV6maDzbgEu1BPPNNuXqp4raAgXFlpLWUn0wKZ0LHJY8xoOnWS1puimzboAG9LMc8x5XE2mcdfIeT52qf3u6MyuoQm1PzioeXJOckqz0rXleEB2g44Kxkhflqh4ouhzE5o_jt_El97SCuj7q_kWv8G_GjANApj2tLjYz0uipC4GPK2wjItNfYqmikRk3xDhGZvxUQcrinEVGNJvOj5X4gnqRa27NPJUp3ZosjCgLEVT4Jp-aNp7uUAGHcMe3BtBKVHUDEo-j0bdmaINVHRsGG77TypcQIQYlSqdm1vA41-RHs_VYpSwcxU2m7nNAifp_dtpec6LX9hdg9nIHVnXpy-H80RL42xEv9f4-pLtX-6b8mEkAlIsbjWC37Q67zZxZqp7iCndAmGf9Kc4OcFCyRybk5bV_9tOKNTBTLx9CDEigZ1AM3u2mAv2P36Tszy8rUPElL9noK9-udrhqbYNqsBqGv_suA5A5IhEtig4yRFRhZxzwue5JhNMyRGXBSmZRyXDCwWG-FUJPzJNuaA7CQoHMkn-XFOXlLMHkL9bMo5ZFhmHi-G6EF8ewBiexOYY5E9vh0Pti3w
 
-@PackageTracking.API_HostAddress = https://localhost:7212
 
+@PackageTracking.API_HostAddress = {{host}}:{{port}}
 
 GET {{PackageTracking.API_HostAddress}}/api/receiver
 Authorization: Bearer {{token}}
 ###
 
 GET {{PackageTracking.API_HostAddress}}/api/receiver/2
+Authorization: Bearer {{token}}
 
 ###
 
 POST {{PackageTracking.API_HostAddress}}/api/receiver
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -26,11 +28,13 @@ Content-Type: application/json
 ###
 
 DELETE {{PackageTracking.API_HostAddress}}/api/receiver/1
+Authorization: Bearer {{token}}
 
 ###
 
 PATCH {{PackageTracking.API_HostAddress}}/api/receiver/8
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "Description": "Receiver 8",
@@ -43,6 +47,7 @@ Content-Type: application/json
 
 POST {{PackageTracking.API_HostAddress}}/api/receiver/{receiverId}/package
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   //CreatePackageCommand
@@ -50,11 +55,11 @@ Content-Type: application/json
 
 ###
 
-POST {{PackageTracking.API_HostAddress}}/api/identity
+POST {{PackageTracking.API_HostAddress}}/api/identity/register
 Content-Type: application/json
 
 {
-    "email": "felipe@test.com",
+    "email": "user@test.com",
     "password": "Password#123"
 }
 
@@ -64,7 +69,7 @@ POST {{PackageTracking.API_HostAddress}}/api/identity/login
 Content-Type: application/json
 
 {
-    "email": "felipe@test.com",
+    "email": "owner@test.com",
     "password": "Password#123"
 }
 
@@ -74,8 +79,28 @@ PATCH {{PackageTracking.API_HostAddress}}/api/identity/user
 Content-Type: application/json
 Authorization: Bearer {{token}}
 {
-    "dateofBirth": "2000-01-01",
-    "nationality": "Peru"
+    "dateofBirth": "2010-01-01",
+    "nationality": "Mexican"
+}
+
+###
+
+POST {{PackageTracking.API_HostAddress}}/api/identity/userRole
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "userEmail": "felipe@test.com",
+    "roleName": "User"
+}
+
+###
+
+DELETE {{PackageTracking.API_HostAddress}}/api/identity/userRole
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "userEmail": "owner@test.com",
+    "roleName": "User"
 }
 
 ###

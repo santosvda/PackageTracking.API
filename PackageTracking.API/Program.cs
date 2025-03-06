@@ -1,4 +1,3 @@
-using Microsoft.OpenApi.Models;
 using PackageTracking.API.Extensions;
 using PackageTracking.API.Middlewares;
 using PackageTracking.Application.Extensions;
@@ -6,7 +5,6 @@ using PackageTracking.Domain.Entities;
 using PackageTracking.Infrastructure.Extensions;
 using PackageTracking.Infrastructure.Seeders.Interfaces;
 using Serilog;
-using System.Security.Cryptography.Xml;
 
 var builder = WebApplication.CreateBuilder(args);
 

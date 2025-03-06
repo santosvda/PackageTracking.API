@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace PackageTracking.Application.Users.Commands;
+namespace PackageTracking.Application.Users.Commands.UpdateUserDetails;
 
 public class UpdateUserDetailsCommand : IRequest
 {

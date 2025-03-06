@@ -14,11 +14,13 @@ public class UpdateReceiverCommandHandler(ILogger<UpdateReceiverCommandHandler> 
     public async Task Handle(UpdateReceiverCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Updating a receiver with Id: {ReceiverId} with {@UpdateReceiver}", request.Id, request);
-        var receiver = mapper.Map<Receiver>(request);
 
-        if(await receiverRepository.GetByIdAsync(receiver.Id) is null)
-            throw new NotFoundException(nameof(Receiver), request.Id.ToString());
+        var receiver = await receiverRepository.GetByIdAsync(request.Id)
+            ?? throw new NotFoundException(nameof(Receiver), request.Id.ToString());
 
-        await receiverRepository.SaveChangesAsync(receiver);
+        mapper.Map(request, receiver);
+
+
+        await receiverRepository.SaveChanges();
     }
 }

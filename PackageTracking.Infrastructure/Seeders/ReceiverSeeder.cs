@@ -1,4 +1,6 @@
-﻿using PackageTracking.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using PackageTracking.Domain.Constants;
+using PackageTracking.Domain.Entities;
 using PackageTracking.Infrastructure.Persistence;
 using PackageTracking.Infrastructure.Seeders.Interfaces;
 
@@ -7,15 +9,40 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
 {
     public async Task Seed() 
     {
-        if (await dbContext.Database.CanConnectAsync())
-            if (!dbContext.Receivers.Any())
-            {
-                var Receiver = GetReceiver();
-                await dbContext.Receivers.AddRangeAsync(Receiver);
-                await dbContext.SaveChangesAsync();
-            }
+        //if (await dbContext.Database.CanConnectAsync())
+        //    if (!dbContext.Receivers.Any())
+        //    {
+        //        var Receiver = GetReceiver();
+        //        await dbContext.Receivers.AddRangeAsync(Receiver);
+        //        await dbContext.SaveChangesAsync();
+        //    }
+
+        if (!dbContext.Roles.Any())
+        {
+            var roles = GetRoles();
+            await dbContext.Roles.AddRangeAsync(roles);
+            await dbContext.SaveChangesAsync();
+        }
 
     }
+
+    private IEnumerable<IdentityRole> GetRoles()
+    {
+        List<IdentityRole> roles =
+        [
+            new (UserRoles.Admin){
+                NormalizedName = UserRoles.Admin.ToUpper()
+            },
+            new (UserRoles.Owner){
+                NormalizedName = UserRoles.Owner.ToUpper()
+            },
+            new (UserRoles.User) {
+                NormalizedName = UserRoles.User.ToUpper() 
+            },
+        ];
+        return roles;
+    }
+
     private IEnumerable<Receiver> GetReceiver()
     {
         List<Receiver> Receiver = [

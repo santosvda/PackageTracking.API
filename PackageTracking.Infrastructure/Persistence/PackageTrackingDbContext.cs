@@ -17,8 +17,7 @@ internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbConte
         modelBuilder.Entity<Receiver>()
            .HasMany(r => r.Packages)
            .WithOne()
-           .HasForeignKey(p => p.ReceiverId)
-           .OnDelete(DeleteBehavior.Cascade);
+           .HasForeignKey(p => p.ReceiverId);
 
         modelBuilder.Entity<Package>(entity =>
         {
@@ -29,5 +28,9 @@ internal class PackageTrackingDbContext (DbContextOptions<PackageTrackingDbConte
                 .HasForeignKey(s => s.PackageId);
         });
 
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Packages)
+            .WithOne(p => p.Owner)
+            .HasForeignKey(p => p.OwnerId);
     }
 }

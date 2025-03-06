@@ -19,6 +19,12 @@ public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : 
 
             logger.LogWarning(notFound.Message);
         }
+        catch (ForbiddenAccessException forbidden)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            await context.Response.WriteAsync("You are not authorized to perform this action.");
+            logger.LogWarning(forbidden.Message);
+        }
         catch (Exception ex)
         {
             logger.LogError(ex, ex.Message);

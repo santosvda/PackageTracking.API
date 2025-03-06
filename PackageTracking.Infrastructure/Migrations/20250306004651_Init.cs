@@ -40,6 +40,9 @@ namespace PackageTracking.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Nationality = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateofBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -235,11 +238,19 @@ namespace PackageTracking.Infrastructure.Migrations
                     Adress_PostalCode = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Adress_Country = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OwnerId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Packages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Packages_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Packages_Receivers_ReceiverId",
                         column: x => x.ReceiverId,
@@ -310,6 +321,11 @@ namespace PackageTracking.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Packages_OwnerId",
+                table: "Packages",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Packages_ReceiverId",
                 table: "Packages",
                 column: "ReceiverId");
@@ -345,10 +361,10 @@ namespace PackageTracking.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Packages");
 
             migrationBuilder.DropTable(
-                name: "Packages");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Receivers");

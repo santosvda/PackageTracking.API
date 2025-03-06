@@ -169,6 +169,10 @@ namespace PackageTracking.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int>("ReceiverId")
                         .HasColumnType("int");
 
@@ -176,6 +180,8 @@ namespace PackageTracking.Infrastructure.Migrations
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ReceiverId");
 
@@ -357,6 +363,12 @@ namespace PackageTracking.Infrastructure.Migrations
 
             modelBuilder.Entity("PackageTracking.Domain.Entities.Package", b =>
                 {
+                    b.HasOne("PackageTracking.Domain.Entities.User", "Owner")
+                        .WithMany("Packages")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PackageTracking.Domain.Entities.Receiver", null)
                         .WithMany("Packages")
                         .HasForeignKey("ReceiverId")
@@ -389,6 +401,8 @@ namespace PackageTracking.Infrastructure.Migrations
                         });
 
                     b.Navigation("Adress");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("PackageTracking.Domain.Entities.Status", b =>
@@ -406,6 +420,11 @@ namespace PackageTracking.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("PackageTracking.Domain.Entities.Receiver", b =>
+                {
+                    b.Navigation("Packages");
+                });
+
+            modelBuilder.Entity("PackageTracking.Domain.Entities.User", b =>
                 {
                     b.Navigation("Packages");
                 });

@@ -7,5 +7,5 @@ public interface IReceiverRepository
     Task<Receiver?> GetByIdAsync(int id);
     Task<int> CreateAsync(Receiver entity);
     Task DeleteAsync(Receiver entity);
-    Task SaveChangesAsync(Receiver entity);
+    Task SaveChanges();
 }

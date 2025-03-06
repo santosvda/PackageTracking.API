@@ -20,7 +20,7 @@ public class PackageController(IMediator mediator) : ControllerBase
         command.ReceiverId = receiverId;
         var id = await mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { id }, null);
+        return CreatedAtAction(nameof(GetById), new { receiverId, id }, null);
 
     }
 
