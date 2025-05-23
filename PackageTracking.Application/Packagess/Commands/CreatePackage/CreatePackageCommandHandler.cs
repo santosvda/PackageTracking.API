@@ -28,6 +28,7 @@ public class CreatePackageCommandHandler(ILogger<CreatePackageCommandHandler> lo
 
         var package = mapper.Map<Package>(request);
         package.OwnerId = currentUser.Id;
+
         var id = await packageRepository.CreateAsync(package);
 
         return id;
