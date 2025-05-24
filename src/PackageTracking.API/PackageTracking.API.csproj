@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PackageTracking.Application\PackageTracking.Application.csproj" />
-    <ProjectReference Include="..\PackageTracking.Infrastructure\PackageTracking.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\PackageTracking.Application\PackageTracking.Application.csproj" />
+    <ProjectReference Include="..\..\src\PackageTracking.Infrastructure\PackageTracking.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PackageTracking.Domain\PackageTracking.Domain.csproj" />
+    <ProjectReference Include="..\..\src\PackageTracking.Domain\PackageTracking.Domain.csproj" />
   </ItemGroup>
 
 </Project>
