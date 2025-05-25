@@ -1,51 +1,66 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PackageTracking.Domain.Constants;
 using PackageTracking.Domain.Entities;
 using PackageTracking.Infrastructure.Persistence;
 using PackageTracking.Infrastructure.Seeders.Interfaces;
 
 namespace PackageTracking.Infrastructure.Seeders;
-internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSeeder
+internal class ReceiverSeeder(PackageTrackingDbContext dbContext) : IReceiverSeeder
 {
-    public async Task Seed() 
+    public async Task Seed()
     {
-        //if (await dbContext.Database.CanConnectAsync())
-        //    if (!dbContext.Receivers.Any())
-        //    {
-        //        var Receiver = GetReceiver();
-        //        await dbContext.Receivers.AddRangeAsync(Receiver);
-        //        await dbContext.SaveChangesAsync();
-        //    }
-
-        if (!dbContext.Roles.Any())
+        if (dbContext.Database.GetPendingMigrations().Any())
         {
-            var roles = GetRoles();
-            await dbContext.Roles.AddRangeAsync(roles);
-            await dbContext.SaveChangesAsync();
+            await dbContext.Database.MigrateAsync();
         }
 
+        if (await dbContext.Database.CanConnectAsync())
+        {
+            if (!await dbContext.Roles.AnyAsync())
+            {
+                var roles = GetRoles();
+                await dbContext.Roles.AddRangeAsync(roles);
+                await dbContext.SaveChangesAsync();
+            }
+
+            if (!await dbContext.Receivers.AnyAsync())
+            {
+                var receivers = GetReceivers();
+                await dbContext.Receivers.AddRangeAsync(receivers);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 
     private IEnumerable<IdentityRole> GetRoles()
     {
         List<IdentityRole> roles =
         [
-            new (UserRoles.Admin){
+            new(UserRoles.Admin)
+            {
                 NormalizedName = UserRoles.Admin.ToUpper()
             },
-            new (UserRoles.Owner){
+            new(UserRoles.Owner)
+            {
                 NormalizedName = UserRoles.Owner.ToUpper()
             },
-            new (UserRoles.User) {
-                NormalizedName = UserRoles.User.ToUpper() 
+            new(UserRoles.User)
+            {
+                NormalizedName = UserRoles.User.ToUpper()
             },
         ];
         return roles;
     }
 
-    private IEnumerable<Receiver> GetReceiver()
+    private IEnumerable<Receiver> GetReceivers()
     {
-        List<Receiver> Receiver = [
+        User owner = new User()
+        {
+            Email = "owner@test.test"
+        };
+        List<Receiver> receivers =
+        [
             new Receiver
             {
                 Id = 1,
@@ -53,8 +68,8 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                 ContactEmail = "jonh@jonh.com",
                 ContactNumber = "123456789",
                 DocumentNumber = "123456789",
-                Packages = new List<Package>
-                {
+                Packages =
+                [
                     new Package
                     {
                         Id = 1,
@@ -68,17 +83,18 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                             PostalCode = "12345",
                             Country = "Country 1"
                         },
-                        Statuses = new List<Status>
-                        {
+                        Statuses =
+                        [
                             new Status
                             {
                                 Id = 1,
                                 Description = "Status 1",
                                 DateTime = DateTime.Now
                             }
-                        }
+                        ],
+                        Owner = owner,
                     }
-                }
+                ]
             },
             new Receiver
             {
@@ -87,8 +103,8 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                 ContactEmail = "jane@jane.com",
                 ContactNumber = "987654321",
                 DocumentNumber = "987654321",
-                Packages = new List<Package>
-                {
+                Packages =
+                [
                     new Package
                     {
                         Id = 2,
@@ -102,19 +118,20 @@ internal class ReceiverSeeder (PackageTrackingDbContext dbContext) : IReceiverSe
                             PostalCode = "54321",
                             Country = "Country 2"
                         },
-                        Statuses = new List<Status>
-                        {
+                        Statuses =
+                        [
                             new Status
                             {
                                 Id = 2,
                                 Description = "Status 2",
                                 DateTime = DateTime.Now
                             }
-                        }
+                        ],
+                        Owner = owner,
                     }
-                }
+                ]
             }
         ];
-        return Receiver;
+        return receivers;
     }
 }
